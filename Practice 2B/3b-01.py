@@ -13,11 +13,10 @@ def check_last_vs_second_last(nums):
     else:
         print("no")
 
+user_input = input("Input the number with a space Example => 2 3 5 7 : ")
+nums = list(map(int, user_input.strip().split()))
 
-nums1 = [2, 3, 5, 7]
-print("Example 1:", nums1, "→", end=" ")
-check_last_vs_second_last(nums1)
+print("Input :", nums, "→", end=" ")
+check_last_vs_second_last(nums)
 
-nums2 = [10, 5, 50, 250, 25]
-print("Example 2:", nums2, "→", end=" ")
-check_last_vs_second_last(nums2)
+
