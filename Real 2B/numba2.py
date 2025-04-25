@@ -9,3 +9,4 @@ while current_coins >= 9:
     current_coins = new_special + (current_coins % 9)  # เหรียญที่เหลือในรอบถัดไป
 
 print(total_special)
+
