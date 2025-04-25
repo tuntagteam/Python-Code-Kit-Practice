@@ -1,7 +1,6 @@
 n = int(input())  # จำนวนกล่อง
 
 packages = []
-
 # อ่านข้อมูลแต่ละกล่อง
 for _ in range(n):
     name, urgency, area = input().split()
