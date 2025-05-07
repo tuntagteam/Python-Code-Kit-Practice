@@ -13,5 +13,4 @@ def solve():
     df["result"] = df["score"].apply(lambda x: "Pass" if x >= 50 else "Fail")
     print(df)
 
-if __name__ == "__main__":
-    solve()
+solve()
