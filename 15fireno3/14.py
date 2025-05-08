@@ -34,6 +34,6 @@ for r in results:
 
 
 # แสดงผลสรุป
-print(f"\n หัว: {total_heads}")
+print(f"หัว: {total_heads}")
 print(f"ก้อย: {total_tails}")
 print(f"หัวที่ต่อเนื่องยาวที่สุด : {max_consec}")

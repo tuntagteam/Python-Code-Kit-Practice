@@ -2,6 +2,8 @@ import random
 
 def guessing_game():
     secret = random.randint(1, 100)
+    randza = secret
+    # print(f"Secret number is: {secret}")  # Uncomment for debugging
     tries = 0
 
     print("I'm thinking of a number between 1 and 100.")
