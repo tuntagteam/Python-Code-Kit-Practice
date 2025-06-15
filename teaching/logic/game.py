@@ -46,6 +46,12 @@ def spawn_ball():
 balls.append(spawn_ball())
 game_over = False  # ตัวแปรสถานะเกมว่าเกมยังไม่จบ
 
+# เพิ่มตัวแปรสถานะสำหรับหน้าเริ่มเกม
+show_start_screen = True
+
+# สร้างปุ่ม Start
+start_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 - 40, 200, 80)
+
 # ลูปหลักของเกม
 running = True  # ตัวแปรควบคุมลูปเกมให้ทำงานต่อเนื่อง
 while running:
@@ -57,7 +63,17 @@ while running:
         if event.type == pygame.QUIT:  # ถ้าผู้ใช้กดปิดหน้าต่าง
             running = False  # ออกจากลูปเกมเพื่อปิดเกม
 
-    if not game_over:  # ถ้าเกมยังไม่จบ
+        # เช็คคลิกบนปุ่ม start
+        if show_start_screen and event.type == pygame.MOUSEBUTTONDOWN:
+            if start_button.collidepoint(event.pos):
+                show_start_screen = False  # เริ่มเกมเมื่อกดปุ่ม
+
+    if show_start_screen:
+        # วาดปุ่ม Start
+        pygame.draw.rect(screen, (0, 200, 0), start_button)
+        start_text = big_font.render("Start Game", True, (255, 255, 255))
+        screen.blit(start_text, (WIDTH // 2 - start_text.get_width() // 2, HEIGHT // 2 - 24))
+    elif not game_over:
         # ตรวจสอบการกดปุ่มลูกศรซ้าย/ขวา เพื่อควบคุมตัวละคร
         keys = pygame.key.get_pressed()  # รับสถานะการกดปุ่มทั้งหมดในขณะนี้
         if keys[pygame.K_LEFT] and player_x > 0:  # ถ้ากดปุ่มซ้ายและผู้เล่นยังไม่ชนขอบซ้าย
