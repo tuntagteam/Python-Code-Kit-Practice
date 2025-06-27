@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Magic Number Filter</title>
+</head>
+<body>
+  <h1>🎮 เกมคัดกรองตัวเลขวิเศษ</h1>
+
+  <form method="post">
+    <button type="submit">🔄 กรองเลขวิเศษ</button>
+  </form>
+
+  <h3>🔢 ตัวเลขที่สุ่มได้:</h3>
+  <p>{{ numbers }}</p>
+
+  {% if magic_numbers %}
+  <h3>✨ ตัวเลขวิเศษ:</h3>
+  <p>{{ magic_numbers }}</p>
+  {% endif %}
+</body>
+</html>
