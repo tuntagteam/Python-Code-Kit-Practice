@@ -1,0 +1,25 @@
+<html>
+    <head >
+        <meta charset="UTF-8">
+        <title>Magic Number Filter</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <h1>Magic Number Filter Tools</h1>
+
+        <form method="post">
+            <button type="submit">Filter Magic Numbers</button>
+        </form>
+
+        <h3>Generated Numbers:</h3>
+        <p>{{ numbers }}</p>
+
+        {% if magic_numbers %}
+        <h3>Magic Numbers:</h3>
+        <p>{{ magic_numbers }}</p>
+        {% endif %}
+    </body>
+    <footer>
+        <p>&copy; 2025 Chawadol Suwansanit</p>
+    </footer>
+</html>
