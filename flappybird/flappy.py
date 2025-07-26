@@ -58,7 +58,9 @@ def draw_bird(win, x, y, frame=0, angle=0):
     # Belly
     pygame.draw.ellipse(bird_surface, (255,255,255), (cx-11, cy+8, 22, 9))
     # Beak
-    pygame.draw.polygon(bird_surface, BIRD_ORANGE, [(cx+BIRD_RADIUS-2, cy), (cx+BIRD_RADIUS+12, cy-5), (cx+BIRD_RADIUS+12, cy+5)])
+    pygame.draw.polygon(bird_surface, BIRD_ORANGE, [(cx+BIRD_RADIUS-2, cy), 
+                                                    (cx+BIRD_RADIUS+12, cy-5), 
+                                                    (cx+BIRD_RADIUS+12, cy+5)])
     # Eye
     pygame.draw.circle(bird_surface, (255,255,255), (cx+8, cy-6), 6)
     pygame.draw.circle(bird_surface, (0,0,0), (cx+11, cy-6), 2)
