@@ -1,0 +1,8 @@
+Finn
+
+cleanCode 2.5/3 some of it still hard to read. and some function can use lambda to make it shorter
+UI&Functionality 5/5
+Understanding 2/2
+
+Bonus 5 question 5
+
