@@ -75,7 +75,9 @@ def print_share_info(actual_port):
 # ---------- Chat logic ----------
 def send_line(conn, text):
     try:
-        conn.sendall((text + "\n").encode("utf-8"))
+        if not text.endswith("\n"):
+            text = text + "\n"
+        conn.sendall(text.encode("utf-8"))
         return True
     except OSError:
         return False
@@ -171,6 +173,10 @@ def main():
     print_share_info(actual_port)
     while True:
         conn, addr = server_sock.accept()
+        try:
+            conn.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        except Exception:
+            pass
         print("Connected:", addr)
         t = threading.Thread(target=handle_client, args=(conn, addr), daemon=True)
         t.start()
