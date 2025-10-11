@@ -5,6 +5,8 @@ PORT = 1234
 
 clients = []
 choices = {}  # {conn: "rock"/"paper"/"scissors"}
+clients_lock = threading.Lock()
+game_started = False
 
 # ---------- Helpers to show addresses ----------
 def get_lan_ip():
@@ -108,58 +110,113 @@ def recv_line(conn):
         if buf.endswith(b"\n"):
             return buf.decode("utf-8").strip()
 
+def safe_send(conn, msg):
+    """Send JSON message; return True if success, False if connection is broken."""
+    try:
+        data = (json.dumps(msg) + "\n").encode("utf-8")
+        conn.sendall(data)
+        return True
+    except OSError:
+        return False
+
 def judge(c1, c2):
     if c1 == c2: return "draw"
     wins = {"rock":"scissors", "paper":"rock", "scissors":"paper"}
     return "p1" if wins[c1] == c2 else "p2"
 
 def handle_game():
-    if len(clients) < 2:
+    """Run a single game session for the first two clients."""
+    global game_started
+    # Snapshot players safely
+    with clients_lock:
+        if len(clients) < 2:
+            return
+        conn1, conn2 = clients[0], clients[1]
+
+    # Notify players
+    if not safe_send(conn1, {"type":"info","msg":"Game start! You are Player 1"}):
+        cleanup_game(conn1, conn2)
         return
-    conn1, conn2 = clients[:2]
-    send(conn1, {"type":"info","msg":"Game start! You are Player 1"})
-    send(conn2, {"type":"info","msg":"Game start! You are Player 2"})
+    if not safe_send(conn2, {"type":"info","msg":"Game start! You are Player 2"}):
+        cleanup_game(conn1, conn2)
+        return
 
     round_no = 1
-    while True:
-        for conn in (conn1, conn2):
-            send(conn, {"type":"prompt","msg":f"Round {round_no}: rock/paper/scissors (or 'quit')"})
-        # collect choices
-        for conn in (conn1, conn2):
-            send(conn, {"type":"ask_choice"})
-        for conn in (conn1, conn2):
-            line = recv_line(conn)
-            if line is None:
-                return
+    try:
+        while True:
+            for conn in (conn1, conn2):
+                if not safe_send(conn, {"type":"prompt","msg":f"Round {round_no}: rock/paper/scissors (or 'quit')"}):
+                    cleanup_game(conn1, conn2); return
+            for conn in (conn1, conn2):
+                if not safe_send(conn, {"type":"ask_choice"}):
+                    cleanup_game(conn1, conn2); return
+
+            round_choices = {}
+            for conn in (conn1, conn2):
+                line = recv_line(conn)
+                if line is None:
+                    cleanup_game(conn1, conn2); return
+                try:
+                    msg = json.loads(line)
+                except Exception:
+                    safe_send(conn, {"type":"error","msg":"bad json"})
+                    cleanup_game(conn1, conn2); return
+                if msg.get("type") == "choice":
+                    choice = msg.get("value","").lower()
+                    if choice == "quit":
+                        safe_send(conn1, {"type":"info","msg":"Game ended."})
+                        safe_send(conn2, {"type":"info","msg":"Game ended."})
+                        cleanup_game(conn1, conn2); return
+                    if choice not in ("rock","paper","scissors"):
+                        safe_send(conn, {"type":"error","msg":"Invalid choice"})
+                        cleanup_game(conn1, conn2); return
+                    round_choices[conn] = choice
+
+            c1, c2 = round_choices.get(conn1), round_choices.get(conn2)
+            result = judge(c1, c2)
+            summary = {"type":"result","p1":c1,"p2":c2,"winner":result}
+            if not safe_send(conn1, summary) or not safe_send(conn2, summary):
+                cleanup_game(conn1, conn2); return
+            round_no += 1
+    finally:
+        cleanup_game(conn1, conn2)
+
+def cleanup_game(conn1, conn2):
+    """Close sockets and reset global game state."""
+    global game_started
+    for c in (conn1, conn2):
+        try:
+            c.close()
+        except Exception:
+            pass
+    with clients_lock:
+        # Remove the two players if they are still in the list
+        for c in (conn1, conn2):
             try:
-                msg = json.loads(line)
-            except:
-                send(conn, {"type":"error","msg":"bad json"}); return
-            if msg.get("type") == "choice":
-                choice = msg.get("value","").lower()
-                if choice == "quit":
-                    send(conn1, {"type":"info","msg":"Game ended."})
-                    send(conn2, {"type":"info","msg":"Game ended."})
-                    return
-                if choice not in ("rock","paper","scissors"):
-                    send(conn, {"type":"error","msg":"Invalid choice"}); return
-                choices[conn] = choice
-        c1, c2 = choices.get(conn1), choices.get(conn2)
-        result = judge(c1, c2)
-        summary = {"type":"result","p1":c1,"p2":c2,"winner":result}
-        send(conn1, summary)
-        send(conn2, summary)
-        round_no += 1
+                if c in clients:
+                    clients.remove(c)
+            except Exception:
+                pass
+        game_started = False
 
 def client_thread(conn, addr):
+    global game_started
     try:
-        send(conn, {"type":"info","msg":"Waiting for another player..."})
-        clients.append(conn)
-        if len(clients) == 2:
+        safe_send(conn, {"type":"info","msg":"Waiting for another player..."})
+        with clients_lock:
+            clients.append(conn)
+            should_start = (len(clients) >= 2) and (not game_started)
+            if should_start:
+                game_started = True
+        if should_start:
             handle_game()
     finally:
-        try: conn.close()
-        except: pass
+        # Connection will be closed by cleanup_game or here if not in a game
+        try:
+            if conn.fileno() != -1:
+                conn.close()
+        except Exception:
+            pass
 
 def main():
     print(f"Starting server...")
