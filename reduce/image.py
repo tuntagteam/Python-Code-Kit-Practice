@@ -113,4 +113,4 @@ def compress_folder(folder):
 
 
 # 👇 CHANGE PATH HERE
-compress_folder(r"C:\Your\Image\Folder")
+compress_folder(r"./uploads")
