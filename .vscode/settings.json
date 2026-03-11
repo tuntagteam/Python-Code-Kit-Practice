@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cd /Applications/XAMPP/xamppfiles/htdocs/Python-Code-Kit-Practice/reduce && python3 -c \"\n# Test upload with service role key \\(if available\\)\nfrom supabase import create_client\nfrom dotenv import load_dotenv\nimport os\n\nload_dotenv\\(\\)\n\n# Try with service role if available\nservice_key = os\\.getenv\\('SUPABASE_SERVICE_ROLE_KEY'\\)\nif service_key:\n    supabase = create_client\\(os\\.getenv\\('SUPABASE_URL'\\), service_key\\)\n    print\\('✅ Using service role key'\\)\n    \n    # Test upload\n    with open\\('test\\.txt', 'w'\\) as f:\n        f\\.write\\('test'\\)\n    \n    try:\n        with open\\('test\\.txt', 'rb'\\) as f:\n            response = supabase\\.storage\\.from_\\('ProductImage'\\)\\.upload\\('test\\.txt', f\\)\n        print\\('✅ Upload with service key successful'\\)\n    except Exception as e:\n        print\\(f'❌ Upload failed even with service key: \\{e\\}'\\)\n    \n    os\\.remove\\('test\\.txt'\\)\nelse:\n    print\\('❌ No SUPABASE_SERVICE_ROLE_KEY found in \\.env'\\)\n\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
