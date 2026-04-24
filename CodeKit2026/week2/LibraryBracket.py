@@ -1,6 +1,5 @@
-s = input("Enter a string of brackets: ")
-
-def valid(s):
+def valid():
+    s = input("Enter a string of brackets: ")
     stack = []
     pairs = {')': '(', '}': '{', ']': '['}
 
@@ -14,7 +13,7 @@ def valid(s):
 
     return len(stack) == 0
 
-if valid(s) == True:
+if valid() == True:
     print("Valid")
 else:
     print("Not Valid")

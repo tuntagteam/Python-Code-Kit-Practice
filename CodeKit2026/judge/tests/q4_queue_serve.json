@@ -1,0 +1,42 @@
+[
+  {
+    "name": "sample case",
+    "input": "7\nJOIN 12\nJOIN 25\nSERVE\nJOIN 30\nSERVE\nSERVE\nSERVE\n",
+    "output": "12 25 30\n"
+  },
+  {
+    "name": "serve empty only",
+    "input": "3\nSERVE\nSERVE\nSERVE\n",
+    "output": "NONE\n"
+  },
+  {
+    "name": "join only no served",
+    "input": "4\nJOIN 10\nJOIN 20\nJOIN 30\nJOIN 40\n",
+    "output": "NONE\n"
+  },
+  {
+    "name": "one join one serve",
+    "input": "2\nJOIN 99\nSERVE\n",
+    "output": "99\n"
+  },
+  {
+    "name": "serve before join should skip",
+    "input": "5\nSERVE\nJOIN 101\nSERVE\nSERVE\nJOIN 202\n",
+    "output": "101\n"
+  },
+  {
+    "name": "fifo order check",
+    "input": "8\nJOIN 1\nJOIN 2\nJOIN 3\nSERVE\nSERVE\nJOIN 4\nSERVE\nSERVE\n",
+    "output": "1 2 3 4\n"
+  },
+  {
+    "name": "mixed with empty serves",
+    "input": "10\nJOIN 5\nSERVE\nSERVE\nJOIN 6\nJOIN 7\nSERVE\nJOIN 8\nSERVE\nSERVE\nSERVE\n",
+    "output": "5 6 7 8\n"
+  },
+  {
+    "name": "large student ids",
+    "input": "6\nJOIN 1000000000\nJOIN 999999999\nSERVE\nJOIN 123456789\nSERVE\nSERVE\n",
+    "output": "1000000000 999999999 123456789\n"
+  }
+]

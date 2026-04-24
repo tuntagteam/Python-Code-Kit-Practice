@@ -1,0 +1,52 @@
+[
+  {
+    "name": "sample case",
+    "input": "8\n-2 3 5 -1 4 -7 2 6\n",
+    "output": "12\n"
+  },
+  {
+    "name": "all positive",
+    "input": "5\n1 2 3 4 5\n",
+    "output": "15\n"
+  },
+  {
+    "name": "all negative choose largest one",
+    "input": "5\n-8 -3 -10 -2 -7\n",
+    "output": "-2\n"
+  },
+  {
+    "name": "single positive",
+    "input": "1\n9\n",
+    "output": "9\n"
+  },
+  {
+    "name": "single negative",
+    "input": "1\n-5\n",
+    "output": "-5\n"
+  },
+  {
+    "name": "best in middle",
+    "input": "9\n-5 4 -1 2 1 -9 3 -2 3\n",
+    "output": "6\n"
+  },
+  {
+    "name": "best at end",
+    "input": "7\n-10 -3 1 2 3 4 5\n",
+    "output": "15\n"
+  },
+  {
+    "name": "best at start",
+    "input": "7\n5 4 3 -20 1 2 3\n",
+    "output": "12\n"
+  },
+  {
+    "name": "contains zero",
+    "input": "6\n0 -1 0 -2 0 -3\n",
+    "output": "0\n"
+  },
+  {
+    "name": "large values",
+    "input": "5\n1000000000 -1 1000000000 -1 1000000000\n",
+    "output": "2999999998\n"
+  }
+]

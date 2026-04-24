@@ -1,0 +1,42 @@
+[
+  {
+    "name": "sample case",
+    "input": "8\n101 205 101 330 205 205 410 500\n",
+    "output": "2\n"
+  },
+  {
+    "name": "no duplicate",
+    "input": "5\n10 20 30 40 50\n",
+    "output": "0\n"
+  },
+  {
+    "name": "all same product",
+    "input": "6\n99 99 99 99 99 99\n",
+    "output": "1\n"
+  },
+  {
+    "name": "two products duplicated",
+    "input": "7\n1 2 3 2 4 1 5\n",
+    "output": "2\n"
+  },
+  {
+    "name": "duplicate many times counts once",
+    "input": "10\n5 5 5 5 6 7 8 8 8 9\n",
+    "output": "2\n"
+  },
+  {
+    "name": "single item",
+    "input": "1\n100\n",
+    "output": "0\n"
+  },
+  {
+    "name": "large product id",
+    "input": "6\n1000000000 1 1000000000 2 2 3\n",
+    "output": "2\n"
+  },
+  {
+    "name": "three duplicated codes",
+    "input": "12\n11 22 33 11 44 22 55 66 33 77 88 99\n",
+    "output": "3\n"
+  }
+]

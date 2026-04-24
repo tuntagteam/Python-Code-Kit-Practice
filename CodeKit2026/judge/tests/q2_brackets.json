@@ -1,0 +1,37 @@
+[
+  {
+    "name": "sample valid",
+    "input": "([]{})()\n",
+    "output": "VALID\n"
+  },
+  {
+    "name": "sample invalid",
+    "input": "([)]\n",
+    "output": "INVALID\n"
+  },
+  {
+    "name": "simple valid",
+    "input": "()\n",
+    "output": "VALID\n"
+  },
+  {
+    "name": "nested valid",
+    "input": "(([]{}))\n",
+    "output": "VALID\n"
+  },
+  {
+    "name": "missing close",
+    "input": "((()\n",
+    "output": "INVALID\n"
+  },
+  {
+    "name": "starts with close",
+    "input": "}{\n",
+    "output": "INVALID\n"
+  },
+  {
+    "name": "wrong pair",
+    "input": "(]\n",
+    "output": "INVALID\n"
+  }
+]
