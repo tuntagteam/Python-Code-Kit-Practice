@@ -192,8 +192,12 @@ YES หรือ NO
 ### Input
 helloo
 
+eye
+
 ### Output
 YES
+
+NO
 
 ---
 
