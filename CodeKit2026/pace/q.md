@@ -247,6 +247,7 @@ ALERT หรือ SAFE
 
 ### Input
 5
+
 2 4 7 9 3
 
 ### Output
@@ -276,6 +277,7 @@ ALERT
 
 ### Input
 5
+
 10 25 7 18 30
 
 ### Output
