@@ -22,6 +22,7 @@ Maximum Subarray Sum || Kadane's Algorithm
 
 ### Input
 7
+
 4 -2 5 -1 2 -7 6
 
 4 + -2 + 5 + -1 + 2 = 8
@@ -56,6 +57,7 @@ Maximum Subarray Sum || Kadane's Algorithm
 
 ### Input
 7
+
 4 1 2 1 2 4 9
 
 ### Output
@@ -84,6 +86,7 @@ SORTED หรือ UNSORTED
 
 ### Input
 5
+
 1 2 2 5 9
 
 ### Output
@@ -111,6 +114,7 @@ SORTED
 
 ### Input
 6
+
 4 9 2 11 7 1
 
 ### Output
@@ -138,6 +142,7 @@ SORTED
 
 ### Input
 5 80
+
 75 90 81 60 100
 
 ### Output
@@ -165,6 +170,7 @@ SORTED
 
 ### Input
 6
+
 3 8 10 5 7 12
 
 ### Output
@@ -247,6 +253,7 @@ ALERT หรือ SAFE
 
 ### Input
 5
+
 2 4 7 9 3
 
 ### Output
@@ -276,6 +283,7 @@ ALERT
 
 ### Input
 5
+
 10 25 7 18 30
 
 ### Output
