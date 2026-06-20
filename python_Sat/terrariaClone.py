@@ -470,7 +470,7 @@ while running:
     # ---- 6. Move the camera smoothly toward the player ----
     target_x = player.centerx - WIDTH // 2
     target_y = player.centery - HEIGHT // 2
-    camera_x += (target_x - camera_x) * 0.12a
+    camera_x += (target_x - camera_x) * 0.12
     camera_y += (target_y - camera_y) * 0.12
     # Keep the camera inside the world so we never see past the edges.
     camera_x = max(0, min(camera_x, COLS * TILE - WIDTH))
