@@ -21,7 +21,7 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
         if event.type == pygame.QUIT:
-            runnning = False
+            running = False
         
         if event.type == pygame.MOUSEBUTTONDOWN:
             x , y = pygame.mouse.get_pos()
