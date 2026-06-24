@@ -417,7 +417,7 @@ while running:
 
     # ---- 2. Move left and right ----
     keys = pygame.key.get_pressed()
-    vel_x = 0
+    vel_x = 0,
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         vel_x = -SPEED
         facing = -1
