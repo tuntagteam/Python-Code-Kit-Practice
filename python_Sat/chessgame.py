@@ -81,7 +81,6 @@ def get_board_surface():
 
     return cached_surface
 
-
 def render_board():
     screen.blit(get_board_surface(), (0, 0))
 
