@@ -1,9 +1,9 @@
 import os
 import pygame
 from pygame.locals import *
-from piece import Piece
-from chess import Chess
-from utils import Utils
+from archive.pychess.piece import Piece
+from archive.pychess.chess import Chess
+from archive.pychess.utils import Utils
 
 class Game:
     def __init__(self):

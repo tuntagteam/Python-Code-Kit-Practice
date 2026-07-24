@@ -4,7 +4,7 @@ import sys
 import pygame
 
 try:
-    import chess
+    import python_Sat.chess as chess
     import chess.svg
     import cairosvg
 except ImportError as error:

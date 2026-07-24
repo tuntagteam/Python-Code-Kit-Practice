@@ -2,8 +2,8 @@ import pygame
 from pygame.locals import *
 import random
 
-from piece import Piece
-from utils import Utils
+from archive.pychess.piece import Piece
+from archive.pychess.utils import Utils
 
 import time
 
