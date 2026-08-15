@@ -1,5 +1,5 @@
-a = 5
-b = 10
+for miles in range(10000000000000000000):
+    if miles % 2 == 0:
+        print(miles)
 
-# The result of 5 + 10 = 15
-print("The result of",a,"+",b,"=",a+b)
+    #i = index
