@@ -6,8 +6,8 @@
         }
     },
     "python-envs.defaultEnvManager": "ms-python.python:system",
-    "python.defaultInterpreterPath": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3",
+    "python.defaultInterpreterPath": "/Users/tagwithsaltedcaramel/.local/share/python314/bin/python3",
     "code-runner.executorMap": {
-        "python": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3 -u"
+        "python": "/Users/tagwithsaltedcaramel/.local/share/python314/bin/python3 -u"
     }
 }
