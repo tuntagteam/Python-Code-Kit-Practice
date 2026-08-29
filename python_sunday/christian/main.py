@@ -1,9 +1,9 @@
-a = 90
-b = 3
+# a = 90
+# b = 3
 
-print(a/b)
-print(a//b)
-print(a%b)
+# print(a/b)
+# print(a//b)
+# print(a%b)
 
 
 
@@ -21,3 +21,8 @@ print(a%b)
 # or = or
 # and = and 
 # != = Not equal
+# += = Plus and save in the same variable
+# -= = Minus and save in the same variable
+a = 10
+a+=1
+print(a)
