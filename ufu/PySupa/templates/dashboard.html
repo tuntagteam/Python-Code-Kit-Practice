@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section data-animate="heading" class="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
+    <div><p class="eyebrow mb-2">Today at a glance</p><h2 class="max-w-xl text-3xl font-black tracking-[-.04em] md:text-4xl">Good food. Clear numbers.<br><span class="text-slate-400">Everything in one place.</span></h2></div>
+    <a href="/orders" class="inline-flex w-fit items-center gap-2 rounded-2xl bg-ink px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-coral">View all orders <span>→</span></a>
+</section>
+
+<section class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <article data-animate="card" class="surface relative overflow-hidden p-5"><div class="absolute -right-6 -top-6 size-24 rounded-full bg-coral/10"></div><div class="mb-7 flex items-center justify-between"><p class="eyebrow">Net revenue</p><span class="grid size-9 place-items-center rounded-xl bg-coral/10 text-coral">↗</span></div><p class="text-3xl font-black tracking-tight">{{ revenue|money }}</p><p class="mt-2 text-xs text-slate-400">From {{ status_counts.COMPLETED or 0 }} completed orders</p></article>
+    <article data-animate="card" class="surface p-5"><div class="mb-7 flex items-center justify-between"><p class="eyebrow">Total orders</p><span class="grid size-9 place-items-center rounded-xl bg-sky-50 text-sky-600">◫</span></div><p class="text-3xl font-black tracking-tight">{{ total_orders }}</p><p class="mt-2 text-xs text-slate-400">{{ status_counts.COOKING or 0 }} cooking · {{ status_counts.READY or 0 }} ready</p></article>
+    <article data-animate="card" class="surface p-5"><div class="mb-7 flex items-center justify-between"><p class="eyebrow">Average ticket</p><span class="grid size-9 place-items-center rounded-xl bg-violet-50 text-violet-600">≈</span></div><p class="text-3xl font-black tracking-tight">{{ average_order|money }}</p><p class="mt-2 text-xs text-slate-400">Per completed order</p></article>
+    <article data-animate="card" class="surface p-5"><div class="mb-7 flex items-center justify-between"><p class="eyebrow">Customers</p><span class="grid size-9 place-items-center rounded-xl bg-emerald-50 text-emerald-600">◎</span></div><p class="text-3xl font-black tracking-tight">{{ customer_count }}</p><p class="mt-2 text-xs text-slate-400">{{ available_menu }} of {{ menu_count }} menu items available</p></article>
+</section>
+
+<section class="mt-5 grid gap-5 xl:grid-cols-[1.6fr_1fr]">
+    <article data-animate="card" class="surface p-5 md:p-6">
+        <div class="mb-7 flex items-start justify-between"><div><p class="eyebrow mb-1">Performance</p><h3 class="text-xl font-black">Revenue rhythm</h3></div><span class="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700">Last 7 sales days</span></div>
+        {% if sales_points %}<div class="flex h-56 items-end gap-3 border-b border-slate-100 px-2">
+            {% for point in sales_points %}<div class="flex h-full flex-1 flex-col justify-end gap-2"><span class="text-center text-[10px] font-bold text-slate-400">{{ point.value|money }}</span><div class="chart-bar min-h-2 rounded-t-xl bg-gradient-to-t from-coral to-orange-300" style="height: {{ (point.value / max_sales * 78)|round }}%"></div><span class="pb-3 text-center text-[10px] font-bold text-slate-400">{{ point.label }}</span></div>{% endfor %}
+        </div>{% else %}<div class="grid h-56 place-items-center rounded-2xl bg-slate-50 text-sm text-slate-400">Completed orders will create the revenue chart.</div>{% endif %}
+    </article>
+    <article data-animate="card" class="surface p-5 md:p-6">
+        <p class="eyebrow mb-1">Fulfilment</p><h3 class="text-xl font-black">Order health</h3>
+        <div class="my-7 flex items-center gap-6"><div class="grid size-32 shrink-0 place-items-center rounded-full" style="background: conic-gradient(#19a974 {{ completion_rate }}%, #edf0ed 0)"><div class="grid size-24 place-items-center rounded-full bg-white text-center"><span><b class="block text-2xl">{{ completion_rate }}%</b><small class="text-[10px] font-bold uppercase tracking-wider text-slate-400">complete</small></span></div></div><div class="w-full space-y-3">{% for status, color in [('COMPLETED','bg-emerald-500'),('COOKING','bg-orange-400'),('READY','bg-sky-500'),('PENDING','bg-amber-400')] %}<div class="flex items-center justify-between text-xs"><span class="flex items-center gap-2 text-slate-500"><i class="size-2 rounded-full {{ color }}"></i>{{ status|title }}</span><b>{{ status_counts[status] or 0 }}</b></div>{% endfor %}</div></div>
+        <div class="rounded-2xl bg-ink p-4 text-white"><p class="text-xs font-semibold text-slate-400">Most popular order type</p><p class="mt-1 text-lg font-black">{{ (type_counts.most_common(1)[0][0] if type_counts else 'No orders')|replace('_',' ')|title }}</p></div>
+    </article>
+</section>
+
+<section data-animate="card" class="surface mt-5 overflow-hidden">
+    <div class="flex items-center justify-between border-b border-slate-100 px-5 py-5 md:px-6"><div><p class="eyebrow mb-1">Live queue</p><h3 class="text-xl font-black">Recent orders</h3></div><a href="/orders" class="text-xs font-bold text-coral">See all →</a></div>
+    <div class="overflow-x-auto"><table class="w-full min-w-[720px] text-left"><thead class="text-[10px] uppercase tracking-[.14em] text-slate-400"><tr><th class="px-6 py-4">Order</th><th class="px-4 py-4">Customer</th><th class="px-4 py-4">Service</th><th class="px-4 py-4">Status</th><th class="px-4 py-4">Placed</th><th class="px-6 py-4 text-right">Total</th></tr></thead><tbody>{% for order in recent_orders %}<tr data-animate="row" class="border-t border-slate-50 transition hover:bg-orange-50/30"><td class="px-6 py-4"><a class="font-black hover:text-coral" href="/orders/{{ order.order_id }}">#{{ order.order_id }}</a></td><td class="px-4 py-4 text-sm font-semibold">{{ order.customers.full_name if order.customers else 'Walk-in guest' }}</td><td class="px-4 py-4 text-xs font-bold text-slate-500">{{ order.order_type|replace('_',' ')|title }}{% if order.table_number %} · {{ order.table_number }}{% endif %}</td><td class="px-4 py-4"><span class="status-pill status-{{ order.order_status }}"><i class="status-dot"></i>{{ order.order_status|title }}</span></td><td class="px-4 py-4 text-xs text-slate-400">{{ order.order_date|short_date }}</td><td class="px-6 py-4 text-right font-black">{{ order.total_amount|money }}</td></tr>{% else %}<tr><td colspan="6" class="px-6 py-14 text-center text-sm text-slate-400">No orders found.</td></tr>{% endfor %}</tbody></table></div>
+</section>
+{% endblock %}
+{% block scripts %}<script>if (!matchMedia('(prefers-reduced-motion: reduce)').matches) gsap.from('.chart-bar',{scaleY:0,transformOrigin:'bottom',duration:.8,stagger:.08,delay:.35,ease:'power3.out'});</script>{% endblock %}
+

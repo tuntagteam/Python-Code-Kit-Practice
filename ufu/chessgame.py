@@ -4,7 +4,7 @@ import sys
 import pygame
 
 try:
-    import python_Sat.chess as chess
+    import ufu.chess as chess
     import chess.svg
     import cairosvg
 except ImportError as error:
@@ -80,7 +80,6 @@ def get_board_surface():
     cached_key = key
 
     return cached_surface
-
 
 def render_board():
     screen.blit(get_board_surface(), (0, 0))

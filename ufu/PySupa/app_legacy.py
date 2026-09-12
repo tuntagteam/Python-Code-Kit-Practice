@@ -1215,6 +1215,11 @@ def customers():
     )
 
 
+from api import register_api
+
+register_api(app, supabase)
+
+
 # =========================================================
 # RUN APPLICATION
 # =========================================================
