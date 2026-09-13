@@ -1,6 +1,10 @@
-# a = int(input("Enter number : "))
-# for i in range(1,13):
-#     print(f"{a} x {i} = {a*i}")    
+password = "tagthebestprogrammer"
+passwordInput = input("Enter your password :")
 
-for i in range(3):
-    print(3)
+while password != passwordInput:
+    print("Incorrect")
+    passwordInput = input("Enter your password :")
+print("Correct! Logging in.")
+
+
+
