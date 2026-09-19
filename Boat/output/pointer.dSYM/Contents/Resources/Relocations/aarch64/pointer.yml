@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Applications/XAMPP/xamppfiles/htdocs/Python-Code-Kit-Practice/Boat/output/pointer'
+relocations:     []
+...
