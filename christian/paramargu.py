@@ -7,7 +7,7 @@ def minus(num1,num2):
 def multiply(num1,num2):
     return num1 * num2
 
-def devided(num1,num2):
+def divided(num1,num2):
     return num1 / num2
 
 def modulo(num1,num2):
@@ -37,7 +37,7 @@ while running:
     elif z == 3:
         print(f"{a} * {b} = {multiply(a,b)}")
     elif z == 4:
-        print(f"{a} / {b} = {devided(a,b)}")
+        print(f"{a} / {b} = {divided(a,b)}")
     elif z == 5:
         print(f"{a} % {b} = {modulo(a,b)}")
     elif z == 0:
