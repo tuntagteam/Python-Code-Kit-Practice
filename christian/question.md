@@ -1,6 +1,6 @@
 # Python Exercises
 
-## 1. Greeting Program
+## 1. Greeting Program 10/10
 
 Write a program that asks the user for their name and age, then prints a greeting message.
 
